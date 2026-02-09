@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+.main {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("BACKGROUND.png") no-repeat center center/cover;
+    padding-top: 75px;
+}
+
+.main::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* Dark overlay */
+    z-index: 0;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 20px;
+    height: 75px;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+}
+
+.menu > ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu ul li {
+    position: relative;
+}
+
+.menu ul li a {
+  color: white;
+  font-family: 'Roboto';
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px 30px;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Left-to-right sliding underline (shorter & red) */
+.menu ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 25%;
+  width: 0%;
+  height: 2px;              /* thinner bar */
+  background: red;          /* solid red color */
+  border-radius: 2px;
+  transition: width 0.4s ease, left 0.4s ease;
+  transform-origin: left;
+}
+
+/* Hover & active states */
+.menu ul li a:hover::after,
+.menu ul li a.active-link::after {
+  width: 50%;               /* only half the width of the text */
+  left: 25%;                /* keeps it centered under the text */
+}
+
+.menu ul li a.active-link {
+  color: red;
+}
+/* Dropdown container */
+.drawings-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: black;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    padding: 10px 0;
+    min-width: 180px; /* Optional: fixed width for cleaner look */
+    border-radius: 4px;
+    z-index: 100;
+}
+
+/* Show dropdown on hover */
+.menu ul li:hover .drawings-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* List inside dropdown */
+.drawings-dropdown ul {
+    list-style: none; /* removes bullets */
+    margin: 0;
+    padding: 0;
+}
+
+.drawings-dropdown ul li {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* optional: separator line */
+}
+
+.drawings-dropdown ul li:last-child {
+    border-bottom: none; /* removes line under last item */
+}
+
+.drawings-dropdown ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.drawings-dropdown ul li a:hover {
+    color: #831616;
+}
+
+/* Content centered with overlay background */
+.content {
+    position: relative;
+    z-index: 1; /* In front of overlay */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.content h1 {
+    font-size: 100px;
+    color: #831616;
+}
+
+.content h2 { 
+    font-size: 40px;
+    color: #831616
+}
+        
+.content p {
+    font-size: 17px;
+    font-family: 'Roboto';
+}
+
+/* Slider */
+.slider-section {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-container {
+    width: 100%;
+    max-width: 1920px;
+    aspect-ratio: 21 / 9;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Progress bars */
+.progress-bars {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    width: 80%;
+    z-index: 5;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: skewX(-20deg);
+    cursor: pointer;
+}
+
+.progress-bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background-color: #ff4c4c;
+    transform: skewX(-20deg);
+}
+
+@keyframes fillBar {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    width: 100%;
+    height: 100vh; /* fills the whole viewport section */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* fills each box */
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Makes sure all images fill space even if few exist */
+.gallery img:nth-child(1n) {
+    grid-row: span 1;
+    grid-column: span 1;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  overflow: hidden;
+}
+
+.lightbox.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: center;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.lightbox-description {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #ff4c4c;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.lightbox-description h3 {
+  margin-bottom: 10px;
+  color: #ff4c4c;
+}
+
+.lightbox-description p {
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  user-select: none;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+@media (max-width: 900px) {
+  .lightbox-content-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .lightbox-description {
+    margin-top: 20px;
+  }
+}
+#about {
+    min-height: 100vh;       /* full viewport height */
+    display: flex;           /* center content */
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+#about .about-img {
+    width: 100%;             /* fills width of the section */
+    height: 100%;            /* fills height of the section */
+    object-fit: contain;     /* keeps aspect ratio */
+}

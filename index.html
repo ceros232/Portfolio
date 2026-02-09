@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reymar Licup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="main" id="home">
+    <div class="navbar">
+        <div class="logo">
+            <a href="#home">
+                <img src="logo.png" alt="SyncWorks Logo">
+            </a>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#home" class="active-link">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li>
+                    <a href="#Drawings">DRAWINGS ▾</a>
+                    <div class="drawings-dropdown">
+                        <ul>
+                            <li><a href="#Traditional">TRADITIONAL</a></li>
+                            <li><a href="#Digital">DIGITAL</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#graphicdesign">GRAPHIC DESIGN</a></li>
+                <li><a href="#animation">ANIMATION</a></li>
+            </ul>
+        </div>
+    </div>
+        <div class="content">
+            <h1>Reymar Licup's Portfolio</h1>
+            <h2>Artwork Compilation</h2>
+            <p>The destination for creative artworks.</p>
+            <p>View my latest projects and sleek layouts.</p>
+            <p>I specialize in drawings, graphic design, and animation.</p>
+        </div>
+    </div>
+    <section class="slider-section">
+        <div class="slider-container">
+            <div class="slide active" style="background-image: url('ARTWORKS.png');"></div>
+            <div class="slide" style="background-image: url('graphic\ design\ cover.jpg');"></div>
+            <div class="slide" style="background-image: url('image3.jpg');"></div>
+            <div class="progress-bars">
+                <div class="progress-bar"><span></span></div>
+                <div class="progress-bar"><span></span></div>
+                <div class="progress-bar"><span></span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+    <img src="ABOUT ME.png" class="about-img">
+    </section>
+<section id="Drawings" style="min-height:100vh; background:#000; padding:50px; color:white;">
+    <h2>Drawings</h2>
+    <p>Traditional and Digital</p>
+
+    <section id="Traditional" style="min-height:100vh; background:#000; padding:50px; color:white;">
+        <h3>Traditional</h3>
+        <div class="gallery">
+            <img src="TRAD 1.jpg" alt="Traditional 1">
+            <img src="TRAD 2.jpg" alt="Traditional 2">
+            <img src="TRAD 3.jpg" alt="Traditional 3">
+            <img src="TRAD 4.jpg" alt="Traditional 4">
+        </div>
+    </section>
+<section id="Digital" style="min-height:100vh; background:#000; padding:50px; color:white;">
+    <h3>Digital</h3>
+    <div class="gallery digital-gallery">
+        <img src="DIGI 1.png" alt="Digital 1">
+        <img src="DIGI 2.jpg" alt="Digital 2">
+        <img src="DIGI 3.png" alt="Digital 3">
+        <img src="DIGI 4.png" alt="Digital 4">
+        <img src="DIGI 5.png" alt="Digital 5">
+        <img src="DIGI 8.jpg" alt="Digital 6">
+        <img src="DIGI 7.jpg" alt="Digital 7">
+        <img src="DIGI 6.jpg" alt="Digital 8">
+        <img src="DIGI 9.jpg" alt="Digital 9">
+    </div>
+</section>
+<section id="graphicdesign" style="min-height:100vh; background:#000; padding:50px; color:white;">
+    <h2>Graphic Design</h2>
+    <div class="gallery">
+        <img src="book.jpg" alt="Graphic 1">
+        <img src="Graphic Design 2.png" alt="Graphic 2">
+        <img src="keyart poster.jpg" alt="Graphic 3">
+    </div>
+</section>
+<section id="animation" style="min-height:100vh; background:#463030; padding:50px; color:white;">
+    <h2>Animation</h2>
+    <div class="gallery">
+        <img src="SHORT ANIMATION.gif" alt="Animation 1">
+        <img src="headturn.gif" alt="Animation 2">
+        <img src="motion.gif" alt="Animation 3">
+    </div>
+</section>
+</div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-prev">&#10094;</button>
+
+  <div class="lightbox-content-wrapper">
+    <img class="lightbox-img" id="lightbox-img" src="">
+    <div class="lightbox-description" id="lightbox-desc">
+      <h3 id="art-title">Artwork Title</h3>
+      <p id="art-details">Description of the artwork will appear here when you click an image.</p>
+    </div>
+  </div>
+
+  <button class="lightbox-next">&#10095;</button>
+</div>
+
+<script>
+    // Smooth scroll when clicking menu links
+    document.querySelectorAll('.menu a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+
+    if (targetId === '#') return;
+
+    const target = document.querySelector(targetId);
+    if (target) {
+      e.preventDefault();
+
+      const navbarHeight = document.querySelector('.navbar').offsetHeight;
+      const targetPosition = target.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+    // Smooth Scroll Highlight
+const sections = document.querySelectorAll("section, .main");
+const navLinks = document.querySelectorAll(".menu ul li a");
+
+// Smooth scroll when clicking menu links
+navLinks.forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").substring(1);
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      const yOffset = -70; // offset for navbar
+      const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth" // forces smooth scroll regardless of OS setting
+      });
+    }
+  });
+});
+
+// Highlight active menu item while scrolling
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 80;
+    const sectionHeight = section.clientHeight;
+    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active-link");
+    if (link.getAttribute("href") === "#" + current) {
+      link.classList.add("active-link");
+    }
+  });
+});
+
+    // Slider Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const bars = document.querySelectorAll('.progress-bar span');
+    const barContainers = document.querySelectorAll('.progress-bar');
+    let slideInterval = setInterval(nextSlide, 5000);
+
+    function startBarAnimation(index) {
+        bars.forEach(bar => {
+            bar.style.animation = "none";
+            bar.style.width = "0%";
+        });
+        void bars[index].offsetWidth;
+        bars[index].style.animation = 'fillBar 5s linear forwards';
+    }
+
+    function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        startBarAnimation(currentSlide);
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function nextSlide() {
+        let nextIndex = (currentSlide + 1) % slides.length;
+        goToSlide(nextIndex);
+    }
+
+    barContainers.forEach((bar, index) => {
+        bar.addEventListener('click', () => goToSlide(index));
+    });
+
+    startBarAnimation(currentSlide);
+// Lightbox setup
+const galleryImgs = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxDesc = document.getElementById('lightbox-desc');
+const artTitle = document.getElementById('art-title');
+const artDetails = document.getElementById('art-details');
+const nextBtn = document.querySelector('.lightbox-next');
+const prevBtn = document.querySelector('.lightbox-prev');
+
+let currentIndex = 0;
+
+const descriptions = [
+  { title: "Buttercup Trade Art", desc: "A trade art with one of my facebook friend." },
+  { title: "Bed", desc: "No description available." },
+  { title: "Bloom", desc: "Practicing the value and smooth shading." },
+  { title: "10 minutes sketch", desc: "Enhancing my speed drawing skills" },
+  { title: "Profile for my Social Media", desc: "Exploring the texture of Tuxedo." },
+  { title: "Lofi Girl", desc: "Trying to be consistent on using GPen for some aesthetic comic 90's vibes." },
+  { title: "Gojo Fan Art", desc: "Practicing Ilya Kuvshinov's Brushes and style." },
+  { title: "Gojo Fan Art2", desc: "Study art for some lighting." },
+  { title: "Boop", desc: "Art study of Ilya Kuvshinov." },
+  { title: "Back Design", desc: "Trying to emphasize a shirt brand with my drawing model." },
+  { title: "Front Shirt Design", desc: "A front view for T-shirt branding sample." },
+  { title: "Model Sheet", desc: "Creating a Model Sheet for school activity. Adapting some Demon Slayer vibes." },
+  { title: "Thumbnail", desc: "A concept design for Minecraft Content (Snow White) using Blender and Photoshop" },
+  { title: "Kintsugi Book", desc: "A design sample for an artist book." },
+  { title: "Streamer Sample Design", desc: "Created a sample design for school activity with theme 'A KUMU online streamer scheduled to create an upcoming online session.'" },
+  { title: "Virtual Dream", desc: "A sample keyart poster design for a virtual dream theme animation." },
+  { title: "Animation Sample", desc: "A short animation sample created using Photoshop and exported as GIF." },
+  { title: "Head turn Animation", desc: "An activity for school where I created head turn animation using Clip Studio Paint and Photoshop" },
+  { title: "Motion Graphics Animation", desc: "A Motion Graphics for Introduction of our class Webinar and created using Adobe After Effects." },
+];
+
+function showSlide(index) {
+  if (index >= galleryImgs.length) index = 0;
+  if (index < 0) index = galleryImgs.length - 1;
+  currentIndex = index;
+  lightboxImg.src = galleryImgs[currentIndex].src;
+  artTitle.textContent = descriptions[currentIndex]?.title || "Artwork";
+  artDetails.textContent = descriptions[currentIndex]?.desc || "No description available.";
+}
+
+galleryImgs.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    lightbox.classList.add('show');
+    showSlide(index);
+  });
+});
+
+nextBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide(currentIndex + 1);
+});
+
+prevBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide(currentIndex - 1);
+});
+
+// Close lightbox on outside click or Escape key
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) lightbox.classList.remove('show');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('show')) return;
+  if (e.key === "Escape") lightbox.classList.remove('show');
+  if (e.key === "ArrowRight") showSlide(currentIndex + 1);
+  if (e.key === "ArrowLeft") showSlide(currentIndex - 1);
+});
+
+</script>
+</body>
+</html>
